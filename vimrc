@@ -4,17 +4,38 @@ set nocompatible
 
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
-Bundle 'scrooloose/nerdtree'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'klen/python-mode'
+Plugin 'VundleVim/Vundle.vim'
 
 " The bundles you install will be listed here
+Plugin 'scrooloose/nerdtree'
+"Plugin 'fholgado/minibufexpl.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'ryanoasis/vim-devicons'
+"Plugin 'klen/python-mode'
+" Rainbow parenthesis highlighting
+"Plugin 'luochen1990/rainbow' 
+" Highlight all occurrences of the word under the cursor
+"Plugin 'RRethy/vim-illuminate'
+" Pulse cursor line each time a search is performed
+"Plugin 'inside/vim-search-pulse'
+" Better folding
+"Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-syntastic/syntastic'
+"Plugin 'nvie/vim-flake8'
+"Plugin 'kien/ctrlp.vim'
+"Plugin 'Vimjas/vim-python-pep8-indent'
+"Plugin 'majutsushi/tagbar'
+" Git
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+call vundle#end()
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents.  Use this to allow intelligent auto-indenting for each filetype,
@@ -73,6 +94,7 @@ set softtabstop=4
 set shiftwidth=4
 set shiftround
 set expandtab
+set textwidth=79
 
 " Omni-completion
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -120,12 +142,22 @@ nnoremap <Space> za
 
 " set my color scheme
 se t_Co=256
-colorscheme mio
+colorscheme twilight256
 
+" Clipboard
+"set clipboard=unnamed
+
+" Increase the refresh time
+set updatetime=250
+
+" ---
 " NERDTree toggle
+" ---
 map <F2> :NERDTreeToggle<CR>
 
+" ---
 " Python-mode
+" ---
 " Activate rope
 " Keys:
 " K             Show python docs
@@ -138,31 +170,54 @@ map <F2> :NERDTreeToggle<CR>
 " ]]            Jump on next class or function (normal, visual, operator modes)
 " [M            Jump on previous class or method (normal, visual, operator modes)
 " ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 1
-let g:pymode_rope_guess_project = 0
+"let g:pymode_rope = 1
+"let g:pymode_rope_guess_project = 0
+"
+"" Documentation
+"let g:pymode_doc = 1
+"let g:pymode_doc_key = 'K'
+"
+""Linting
+"let g:pymode_lint = 1
+"let g:pymode_lint_checker = "pyflakes,pep8"
+"" Auto check on save
+"let g:pymode_lint_write = 1
+"
+"" Support virtualenv
+"let g:pymode_virtualenv = 1
+"
+"" Enable breakpoints plugin
+"let g:pymode_breakpoint = 1
+"let g:pymode_breakpoint_key = '<leader>b'
+"
+"" syntax highlighting
+"let g:pymode_syntax = 1
+"let g:pymode_syntax_all = 1
+"let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+"let g:pymode_syntax_space_errors = g:pymode_syntax_all
+"
+"" Don't autofold code
+"let g:pymode_folding = 0
 
-" Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
+" ---
+" Syntastic
+" ---
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-"Linting
-let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
-" Auto check on save
-let g:pymode_lint_write = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_enable_elixir_checker = 1
+" let g:syntastic_elixir_checkers = ["elixir"]
 
-" Support virtualenv
-let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" Don't autofold code
-let g:pymode_folding = 0
+" ---
+" Vim-Airline Configuration
+" ---
+let g:airline#extensions#tabline#enabled = 1
+"let g:airline_powerline_fonts = 1
+let g:airline_theme='hybrid'
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1
